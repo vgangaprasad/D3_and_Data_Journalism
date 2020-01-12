@@ -138,7 +138,9 @@ function updateToolTip(chosenXAxis, chosenYAxis, circlesGroup) {
 }
 
 // Import Data
-d3.csv("D3-Challenge/assets/data/censusdata.csv").then(function(censusData) {
+///
+//d3.csv("D3-Challenge/assets/data/censusdata.csv").then(function(censusData) {
+d3.csv("/../censusdata.csv").then(function(censusData) {
 
     // Step 1: Parse Data/Cast as numbers
     // ==============================
