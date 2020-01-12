@@ -1,4 +1,3 @@
-console.log("Hello - on top")
 var svgWidth = 800;
 var svgHeight = 600;
 
@@ -13,7 +12,7 @@ var width = svgWidth - margin.left - margin.right;
 var height = svgHeight - margin.top - margin.bottom;
 
 // Create an SVG wrapper, append an SVG group that will hold our chart, and shift the latter by left and top margins.
-var svg = d3.select(".chart")
+var svg = d3.select("#scatter")
   .append("svg")
   .attr("width", svgWidth)
   .attr("height", svgHeight);
@@ -34,9 +33,6 @@ function xScale(censusData, chosenXAxis) {
       d3.max(censusData, d => d[chosenXAxis]) * 1.2
     ])
     .range([0, width]);
-  console.log("In xScale Function")
-  console.log("xLinearScale")
-  console.log(xLinearScale)
   return xLinearScale;
 
 }
@@ -50,9 +46,6 @@ function yScale(censusData, chosenYAxis) {
     ])
     .range([height,0]);
 
-  console.log("In yScale Function")
-  console.log("yLinearScale")
-  console.log(yLinearScale)
   return yLinearScale;
 }
 
@@ -286,8 +279,6 @@ d3.csv("assets/data/censusdata.csv").then(function(censusData) {
             // Replace chosenXAxis with value
             chosenXAxis = xValue
 
-            console.log(chosenXAxis);
-
             // Below functions also found above CSV import
             // Updates x scale for new data
             xLinearScale = xScale(censusData, chosenXAxis);
@@ -326,8 +317,6 @@ d3.csv("assets/data/censusdata.csv").then(function(censusData) {
 
             // Replace chosenXAxis with value
             chosenYAxis = yValue
-
-            console.log(chosenYAxis);
 
             // Below functions also found above CSV import
             // Updates x scale for new data
