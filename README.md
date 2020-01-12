@@ -1,8 +1,6 @@
 # D3 Homework - Data Journalism and D3
 
-![Newsroom](https://media.giphy.com/media/v2xIous7mnEYg/giphy.gif)
-
-![Newsroom 2](https://media.giphy.com/media/1mhorntYFPAdccXtKe/giphy.gif)
+![Newsroom](https://media.giphy.com/media/1mhorntYFPAdccXtKe/giphy.gif)
 
 ## Background
 
