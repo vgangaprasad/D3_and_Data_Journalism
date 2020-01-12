@@ -1,9 +1,10 @@
-var svgWidth = 960;
+console.log("Hello - on top")
+var svgWidth = 800;
 var svgHeight = 600;
 
 var margin = {
   top: 40,
-  right: 100,
+  right: 50,
   bottom: 100,
   left: 100
 };
@@ -33,7 +34,9 @@ function xScale(censusData, chosenXAxis) {
       d3.max(censusData, d => d[chosenXAxis]) * 1.2
     ])
     .range([0, width]);
-
+  console.log("In xScale Function")
+  console.log("xLinearScale")
+  console.log(xLinearScale)
   return xLinearScale;
 
 }
@@ -42,11 +45,14 @@ function xScale(censusData, chosenXAxis) {
 function yScale(censusData, chosenYAxis) {
   // create scales
   var yLinearScale = d3.scaleLinear()
-    .domain([d3.min(censusData, d => d[chosenYAxis]) * 1.2,
-      d3.max(censusData, d => d[chosenYAxis]) * 0.8
+    .domain([d3.min(censusData, d => d[chosenYAxis]) * 0.9,
+      d3.max(censusData, d => d[chosenYAxis]) * 1.1
     ])
-    .range([0, height]);
+    .range([height,0]);
 
+  console.log("In yScale Function")
+  console.log("yLinearScale")
+  console.log(yLinearScale)
   return yLinearScale;
 }
 
@@ -64,7 +70,7 @@ function renderXAxes(newXScale, xAxis) {
 
 // function used for updating yAxis var upon click on axis label
 function renderYAxes(newYScale, yAxis) {
-  var leftAxis = d3.axisBottom(newYScale);
+  var leftAxis = d3.axisLeft(newYScale);
 
   yAxis.transition()
     .duration(1000)
@@ -138,23 +144,18 @@ function updateToolTip(chosenXAxis, chosenYAxis, circlesGroup) {
   return circlesGroup;
 }
 
-
-
-
-
-
 // Import Data
-d3.csv("censusdata.csv").then(function(censusData) {
+d3.csv("assets/data/censusdata.csv").then(function(censusData) {
 
     // Step 1: Parse Data/Cast as numbers
     // ==============================
     censusData.forEach(function(data) {
-      data.poverty = +data.poverty;
-      data.age = +data.age;
+      data.poverty = parseFloat(data.poverty);
+      data.age = parseFloat(data.age);
       data.income = +data.income;
-      data.healthcare = +data.healthcare;
-      data.obesity = +data.obesity;
-      data.smokes = + data.smokes;
+      data.healthcare = parseFloat(data.healthcare);
+      data.obesity = parseFloat(data.obesity);
+      data.smokes = parseFloat(data.smokes);
     });
 
     // Step 2: Create scale functions
@@ -191,20 +192,26 @@ d3.csv("censusdata.csv").then(function(censusData) {
         .data(censusData)
         .enter()
         .append("g");
+        //.attr("transform", d => "translate("+xLinearScale(d.poverty)+","+yLinearScale(d.healthcare)+")");
 
     circlesGroup.append("circle")
         .attr("cx", d => xLinearScale(d[chosenXAxis]))
         .attr("cy", d => yLinearScale(d[chosenYAxis]))
-        .attr("r", 15)
+        .attr("r", "15")
         .attr("opacity", "0.75")
-        .attr("fill","yellow")
+        .attr("fill","pink")
         .classed("stateCircle", true);
 
     circlesGroup.append("text")
-        .classed("stateText", true)
-        .text(d => d.abbr)
         .attr("x", d => xLinearScale(d[chosenXAxis]))
-        .attr("y", d => yLinearScale(d[chosenYAxis]));
+        .attr("y", d => yLinearScale(d[chosenYAxis]))
+        .attr("dy",6)
+        .classed("stateText", true)
+        .attr("text-anchor", "middle")
+        .style("font-size",1.5)
+        .text(d => d.abbr);
+        
+        
 
 
     // Create group for 3 x- axis labels
@@ -284,7 +291,7 @@ d3.csv("censusdata.csv").then(function(censusData) {
             // Below functions also found above CSV import
             // Updates x scale for new data
             xLinearScale = xScale(censusData, chosenXAxis);
-            yLinearScale = yScale(censusData, chosenYAxis);
+//            yLinearScale = yScale(censusData, chosenYAxis);
 
             // Updates x axis with transition
             xAxis = renderXAxes(xLinearScale, xAxis);
@@ -324,7 +331,7 @@ d3.csv("censusdata.csv").then(function(censusData) {
 
             // Below functions also found above CSV import
             // Updates x scale for new data
-            xLinearScale = xScale(censusData, chosenXAxis);
+            //xLinearScale = xScale(censusData, chosenXAxis);
             yLinearScale = yScale(censusData, chosenYAxis);
 
             // Updates y axis with transition
