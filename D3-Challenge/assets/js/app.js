@@ -141,8 +141,7 @@ function updateToolTip(chosenXAxis, chosenYAxis, circlesGroup) {
 ///
 //d3.csv("D3-Challenge/assets/data/censusdata.csv").then(function(censusData) {
 d3.csv("/D3-Challenge/assets/data/censusdata.csv").then(function(censusData) {
-
-    // Step 1: Parse Data/Cast as numbers
+  // Step 1: Parse Data/Cast as numbers
     // ==============================
     censusData.forEach(function(data) {
       data.poverty = parseFloat(data.poverty);
