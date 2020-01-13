@@ -29,3 +29,8 @@ body {
   margin: 0;
   font-size: 16px;
 }
+
+.jumbotron {
+	background-color: #89bdd3;
+	color: black;
+}

@@ -127,7 +127,7 @@ function updateToolTip(chosenXAxis, chosenYAxis, circlesGroup) {
   circlesGroup.call(toolTip);
 
   circlesGroup.on("mouseover", function(data) {
-    toolTip.show(data);
+    toolTip.show(data,this);
   })
     // onmouseout event
     .on("mouseout", function(data, index) {
@@ -193,7 +193,7 @@ d3.csv("censusdata.csv").then(function(censusData) {
         .attr("cy", d => yLinearScale(d[chosenYAxis]))
         .attr("r", "15")
         .attr("opacity", "0.75")
-        .attr("fill","pink")
+        .attr("fill","lightblue")
         .classed("stateCircle", true);
 
     circlesGroup.append("text")
@@ -203,6 +203,9 @@ d3.csv("censusdata.csv").then(function(censusData) {
         .classed("stateText", true)
         .attr("text-anchor", "middle")
         .style("font-size",1.5)
+        .style("fill", "red")
+        .style("font", "10px sans-serif")
+        .style("font-weight", "bold")
         .text(d => d.abbr);
         
         
